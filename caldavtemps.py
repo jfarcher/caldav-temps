@@ -20,7 +20,6 @@ def get_calendar():
     parser = SafeConfigParser()
     parser.read('./config.ini')
     url = parser.get('calendar', 'url')
-    #url = 'http://'+user+':'+password+'@'+host+':'+port+'/remote.php/caldav/calendars/'+user+'/'+cal
     client = caldav.DAVClient(url)
     principal = caldav.Principal(client)
     calendars = principal.calendars()
@@ -33,7 +32,6 @@ def main():
     timeMax = home_tz.localize(datetime(year=now.year, month=now.month, day=now.day, hour=now.hour, minute=now.minute, second=now.second ) + timedelta(minutes=1))
     #print timeMax
     #print timeMin
-#   evs = filter_events(cal, timeMin, timeMax)
     evs = cal.date_search(timeMin, timeMax)
     for event in evs:
        try:
