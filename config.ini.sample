@@ -1,7 +1,2 @@
 [calendar]
-host = localhost
-port = 80
-user = johnsmith
-password = password
-cal = temperatures
-
+url=http://johnsmith:password@localhost:80/remote.php/caldav/calendars/johnsmith/temperatures
