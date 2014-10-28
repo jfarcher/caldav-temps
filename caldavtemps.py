@@ -19,13 +19,8 @@ def get_calendar():
     """
     parser = SafeConfigParser()
     parser.read('./config.ini')
-    host = parser.get('calendar', 'host')
-    port = parser.get('calendar', 'port')
-    user = parser.get('calendar', 'user')
-    password = parser.get('calendar', 'password')
-    cal = parser.get('calendar', 'cal')
-
-    url = 'http://'+user+':'+password+'@'+host+':'+port+'/remote.php/caldav/calendars/'+user+'/'+cal
+    url = parser.get('calendar', 'url')
+    #url = 'http://'+user+':'+password+'@'+host+':'+port+'/remote.php/caldav/calendars/'+user+'/'+cal
     client = caldav.DAVClient(url)
     principal = caldav.Principal(client)
     calendars = principal.calendars()
