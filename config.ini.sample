@@ -1,0 +1,7 @@
+[calendar]
+host = localhost
+port = 80
+user = johnsmith
+password = password
+cal = temperatures
+
