@@ -27,7 +27,7 @@ def get_calendar():
     calendars = principal.calendars()
     return calendars[0]
 
-def main():
+def caldav_return():
     cal = get_calendar()
     now = datetime.now(tz=home_tz) # timezone?
     timeMin = home_tz.localize(datetime(year=now.year, month=now.month, day=now.day, hour=now.hour, minute=now.minute, second=now.second ))
@@ -54,4 +54,4 @@ def main():
        return return_temp
 
 if __name__ == '__main__':
-    main()
+    caldav_return()
