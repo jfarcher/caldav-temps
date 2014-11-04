@@ -10,6 +10,8 @@ from email.mime.text import MIMEText
 from icalendar import Calendar, Event
 import vobject
 import string
+import re
+regex_temp = re.compile(r'^Temp=(.*)')
 
 home_tz = pytz.timezone('Europe/London')
 
@@ -32,18 +34,24 @@ def main():
     timeMax = home_tz.localize(datetime(year=now.year, month=now.month, day=now.day, hour=now.hour, minute=now.minute, second=now.second ) + timedelta(minutes=1))
     #print timeMax
     #print timeMin
+    return_temp = 13.6654
+
     evs = cal.date_search(timeMin, timeMax)
     for event in evs:
        try:
 	cal = Calendar.from_ical(smart_str(event.data))
         ev0 = cal.walk('vevent')[0]
         parsedCal = vobject.readOne(event.data)
-	title = str(ev0['SUMMARY']).replace("\\,",",")
-	description = str(ev0['DESCRIPTION']).replace("\\,",",")
-	if title == "TEMP":
-		print description
+	tempstring = str(ev0['SUMMARY']).replace("\\,",",")
+        match = regex_temp.search(tempstring)
+
+	if match:
+		target_temp = float(match.group(1))
+		return_temp = target_temp
        except Exception, exc:
-           print "DOH!"
+		return_temp = 13.6654
+       #print return_temp
+       return return_temp
 
 if __name__ == '__main__':
     main()
